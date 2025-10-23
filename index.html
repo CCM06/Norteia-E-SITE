@@ -1458,85 +1458,90 @@
         </div>
     </section>
 
-    <!-- Contato -->
-    <section id="contato">
-        <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contato-container">
-                <div class="form-contato">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="nome">Nome</label>
-                            <input type="text" id="nome" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="servico">Serviço de Interesse</label>
-                            <select id="servico" class="form-control">
-                                <option value="">Selecione um serviço</option>
-                                <option value="diagnostico">Diagnóstico Visual - R$ 49</option>
-                                <option value="projeto-2d">Projeto Guia 2D - R$ 127</option>
-                                <option value="imersao-3d">Imersão 3D - R$ 197</option>
-                                <option value="experiencia-completa">Experiência Completa - R$ 297</option>
-                                <option value="home-office">Home Office Popular - R$ 127</option>
-                                <option value="quitinete">Quitinete Inteligente - R$ 197</option>
-                                <option value="rotina">Rotina Aconchegante - R$ 157</option>
-                                <option value="visita-tecnica">Visita Técnica - R$ 87</option>
-                                <option value="consulta-cor">Consulta Cor - R$ 25</option>
-                                <option value="plantao-duvidas">Plantão Dúvidas - R$ 15/15min</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="mensagem">Mensagem</label>
-                            <textarea id="mensagem" rows="5" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-enviar">Enviar Mensagem</button>
-                    </form>
+   <!-- Contato -->
+<section id="contato">
+    <div class="container">
+        <h2 class="section-title">Entre em Contato</h2>
+        <div class="contato-container">
+            <div class="form-contato">
+                <form action="https://formsubmit.co/norteiastudio01@gmail.com" method="POST">
+                    <!-- Configurações do FormSubmit -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://seuusuario.github.io/seurepositorio/obrigado.html">
+                    <input type="hidden" name="_subject" value="Novo contato do site Norteia Studio">
+                    
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="servico">Serviço de Interesse</label>
+                        <select id="servico" name="servico" class="form-control">
+                            <option value="">Selecione um serviço</option>
+                            <option value="Diagnóstico Visual - R$ 49">Diagnóstico Visual - R$ 49</option>
+                            <option value="Projeto Guia 2D - R$ 127">Projeto Guia 2D - R$ 127</option>
+                            <option value="Imersão 3D - R$ 197">Imersão 3D - R$ 197</option>
+                            <option value="Experiência Completa - R$ 297">Experiência Completa - R$ 297</option>
+                            <option value="Home Office Popular - R$ 127">Home Office Popular - R$ 127</option>
+                            <option value="Quitinete Inteligente - R$ 197">Quitinete Inteligente - R$ 197</option>
+                            <option value="Rotina Aconchegante - R$ 157">Rotina Aconchegante - R$ 157</option>
+                            <option value="Visita Técnica - R$ 87">Visita Técnica - R$ 87</option>
+                            <option value="Consulta Cor - R$ 25">Consulta Cor - R$ 25</option>
+                            <option value="Plantão Dúvidas - R$ 15/15min">Plantão Dúvidas - R$ 15/15min</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="message" rows="5" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+                </form>
+            </div>
+            <div class="info-contato">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <h4>WhatsApp</h4>
+                        <p>(96) 99120-8893</p>
+                    </div>
                 </div>
-                <div class="info-contato">
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div>
-                            <h4>WhatsApp</h4>
-                            <p>(96) 99120-8893</p>
-                        </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4>E-mail</h4>
-                            <p>norteiastudio01@gmail.com</p>
-                        </div>
+                    <div>
+                        <h4>E-mail</h4>
+                        <p>norteiastudio01@gmail.com</p>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                        <div>
-                            <h4>Instagram</h4>
-                            <p>@norteiastudio</p>
-                        </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fab fa-instagram"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div>
-                            <h4>Pagamento</h4>
-                            <p>Aceitamos PIX, transferência e parcelamento</p>
-                        </div>
+                    <div>
+                        <h4>Instagram</h4>
+                        <p>@norteiastudio</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div>
+                        <h4>Pagamento</h4>
+                        <p>Aceitamos PIX, transferência e parcelamento</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
@@ -1591,7 +1596,6 @@
             </div>
         </div>
     </footer>
-
     <script>
         // Carrossel de serviços
         const carrossel = document.getElementById('carrossel');
@@ -1608,21 +1612,11 @@
             });
         }
         
-        // Formulário de contato
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Obrigado pelo seu interesse! Entraremos em contato em breve.');
-                this.reset();
-            });
-        }
-        
         // Suporte para navegadores antigos
         if (!window.addEventListener) {
-            // Fallback para IE8 e anteriores
             document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"><\/script>');
         }
     </script>
+
 </body>
 </html>
