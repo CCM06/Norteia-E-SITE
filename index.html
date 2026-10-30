@@ -1,1153 +1,244 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Norteia Studio - Design Acessível para Todos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Reset CSS compatível com todos os navegadores */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
-
-        :root {
-            --cor-destaque: #2d2d2d;
-            --cor-destaque-claro: #5a5a5a;
-            --cor-destaque-suave: #7a7a7a;
-            --cor-texto: #1a1a1a;
-            --cor-texto-secundario: #5a5a5a;
-            --cor-fundo: #f5f5f5;
-            --cor-branco: #ffffff;
-            --cor-cinza-claro: #e8e8e8;
-            --cor-cinza-medio: #d6d6d6;
-            --cor-cinza-escuro: #3a3a3a;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--cor-fundo);
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.8) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.6) 0%, transparent 50%);
-            background-size: 800px 800px, 600px 600px;
-            background-position: -200px -200px, 600px 300px;
-            line-height: 1.6;
-            color: var(--cor-texto);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Container responsivo */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            width: 100%;
-        }
-
-        /* Header compatível */
-        header {
-            background: var(--cor-branco);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .logo-img {
-            height: 45px;
-            width: auto;
-            filter: grayscale(100%) contrast(130%);
-            transition: all 0.3s ease;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0px); 
-            }
-            50% { 
-                transform: translateY(-8px); 
-            }
-        }
-
-        /* Menu de navegação responsivo */
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-menu a {
-            color: var(--cor-texto);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            padding: 5px 0;
-        }
-
-        .nav-menu a:hover {
-            color: var(--cor-destaque-claro);
-        }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--cor-destaque);
-            transition: width 0.3s;
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        .btn-colaborador {
-            background: var(--cor-destaque-suave);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--cor-destaque-suave);
-            white-space: nowrap;
-            display: inline-block;
-        }
-
-        .btn-colaborador:hover {
-            background: transparent;
-            color: var(--cor-destaque-suave);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section otimizada */
-        .hero {
-            background: linear-gradient(135deg, var(--cor-branco) 0%, var(--cor-cinza-claro) 100%);
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(45,45,45,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(45,45,45,0.03) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            width: 100%;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', 'Times New Roman', serif;
-            font-size: clamp(2.5rem, 5vw, 3.2rem);
-            margin-bottom: 25px;
-            color: var(--cor-texto);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
-            margin-bottom: 35px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--cor-texto-secundario);
-            line-height: 1.7;
-        }
-
-        .btn-hero {
-            display: inline-block;
-            background: var(--cor-destaque);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--cor-destaque);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-hero:hover {
-            background: transparent;
-            color: var(--cor-destaque);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Seções gerais responsivas */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', 'Times New Roman', serif;
-            font-size: clamp(2rem, 4vw, 2.4rem);
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--cor-texto);
-            position: relative;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 2px;
-            background: var(--cor-destaque);
-            margin: 20px auto;
-            border-radius: 2px;
-        }
-
-        /* Sobre Nós responsivo */
-        .sobre-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        @media (min-width: 768px) {
-            .sobre-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 60px;
-            }
-        }
-
-        .sobre-texto {
-            padding-right: 0;
-        }
-
-        @media (min-width: 768px) {
-            .sobre-texto {
-                padding-right: 20px;
-            }
-        }
-
-        .sobre-texto p {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            color: var(--cor-texto-secundario);
-            line-height: 1.7;
-        }
-
-        .equipe-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .membro {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            border: 1px solid var(--cor-cinza-medio);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-            .membro {
-                padding: 35px;
-            }
-        }
-
-        .membro::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--cor-destaque);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .membro:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .membro:hover::before {
-            transform: scaleY(1);
-        }
-
-        .membro h3 {
-            color: var(--cor-texto);
-            margin-bottom: 8px;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .membro-cargo {
-            color: var(--cor-destaque-claro);
-            font-weight: 500;
-            margin-bottom: 18px;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-        }
-
-        .membro p {
-            color: var(--cor-texto-secundario);
-            line-height: 1.7;
-        }
-
-        /* Dados IBGE responsivo */
-        .dados-container {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-            max-width: 900px;
-            margin: 0 auto;
-            border: 1px solid var(--cor-cinza-medio);
-        }
-
-        @media (min-width: 768px) {
-            .dados-container {
-                padding: 50px;
-            }
-        }
-
-        .dados-item {
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--cor-cinza-claro);
-        }
-
-        .dados-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .dados-titulo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            gap: 15px;
-        }
-
-        .dados-icon {
-            color: var(--cor-destaque);
-            font-size: 1.4rem;
-        }
-
-        .dados-titulo h3 {
-            color: var(--cor-texto);
-            font-size: 1.3rem;
-        }
-
-        .dados-item p {
-            color: var(--cor-texto-secundario);
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        /* Serviços - Carrossel compatível */
-        .servicos-container {
-            position: relative;
-            max-width: 100%;
-            overflow: hidden;
-        }
-
-        .servicos-carrossel {
-            display: flex;
-            gap: 25px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 20px 10px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-        }
-
-        .servicos-carrossel::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Edge */
-        }
-
-        .servico-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            min-width: 300px;
-            flex-shrink: 0;
-            border: 1px solid var(--cor-cinza-medio);
-        }
-
-        @media (min-width: 768px) {
-            .servico-card {
-                min-width: 340px;
-            }
-        }
-
-        .servico-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .servico-header {
-            background: var(--cor-destaque);
-            color: white;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-            .servico-header {
-                padding: 30px;
-            }
-        }
-
-        .servico-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            transform: translate(30px, -30px);
-        }
-
-        .servico-titulo {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            font-family: 'Playfair Display', 'Times New Roman', serif;
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (min-width: 768px) {
-            .servico-titulo {
-                font-size: 1.5rem;
-            }
-        }
-
-        .servico-preco {
-            font-size: 1.8rem;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (min-width: 768px) {
-            .servico-preco {
-                font-size: 2rem;
-            }
-        }
-
-        .servico-descricao {
-            padding: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .servico-descricao {
-                padding: 30px;
-            }
-        }
-
-        .servico-descricao p {
-            margin-bottom: 18px;
-            font-style: italic;
-            color: var(--cor-texto-secundario);
-            line-height: 1.6;
-        }
-
-        .servico-lista {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .servico-lista li {
-            margin-bottom: 10px;
-            padding-left: 22px;
-            position: relative;
-            color: var(--cor-texto-secundario);
-            line-height: 1.6;
-        }
-
-        .servico-lista li:before {
-            content: "•";
-            color: var(--cor-destaque);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .servico-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            color: var(--cor-texto-secundario);
-            padding-top: 15px;
-            border-top: 1px solid var(--cor-cinza-claro);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .btn-servico {
-            display: block;
-            text-align: center;
-            background: var(--cor-destaque);
-            color: white;
-            padding: 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--cor-destaque);
-            width: 100%;
-        }
-
-        .btn-servico:hover {
-            background: transparent;
-            color: var(--cor-destaque);
-        }
-
-        .carrossel-controles {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 40px;
-        }
-
-        .carrossel-btn {
-            background: var(--cor-destaque);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            border: 1px solid var(--cor-destaque);
-            font-size: 1.2rem;
-        }
-
-        .carrossel-btn:hover {
-            background: transparent;
-            color: var(--cor-destaque);
-            transform: scale(1.1);
-        }
-
-        /* Como Funciona responsivo */
-        .processo {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-            max-width: 900px;
-            margin: 0 auto;
-            border: 1px solid var(--cor-cinza-medio);
-        }
-
-        @media (min-width: 768px) {
-            .processo {
-                padding: 50px;
-            }
-        }
-
-        .processo-lista {
-            list-style: none;
-            counter-reset: step-counter;
-        }
-
-        .processo-lista li {
-            counter-increment: step-counter;
-            margin-bottom: 30px;
-            padding-left: 70px;
-            position: relative;
-        }
-
-        @media (min-width: 768px) {
-            .processo-lista li {
-                padding-left: 90px;
-                margin-bottom: 40px;
-            }
-        }
-
-        .processo-lista li:last-child {
-            margin-bottom: 0;
-        }
-
-        .processo-lista li:before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 50px;
-            height: 50px;
-            background: var(--cor-destaque);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            font-family: 'Playfair Display', 'Times New Roman', serif;
-        }
-
-        @media (min-width: 768px) {
-            .processo-lista li:before {
-                width: 60px;
-                height: 60px;
-                font-size: 1.4rem;
-            }
-        }
-
-        .processo-lista h3 {
-            color: var(--cor-texto);
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-
-        @media (min-width: 768px) {
-            .processo-lista h3 {
-                font-size: 1.3rem;
-            }
-        }
-
-        .processo-lista p {
-            color: var(--cor-texto-secundario);
-            line-height: 1.7;
-        }
-
-        /* Colaboradores responsivo */
-        .colaboradores {
-            background: linear-gradient(135deg, var(--cor-cinza-claro) 0%, var(--cor-branco) 100%);
-            color: var(--cor-texto);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .colaboradores::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(45,45,45,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 90% 90%, rgba(45,45,45,0.03) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .colaboradores-container {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .colaboradores-container p {
-            color: var(--cor-texto-secundario);
-            margin-bottom: 20px;
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        .btn-colaborar {
-            display: inline-block;
-            background: var(--cor-destaque-suave);
-            color: white;
-            padding: 14px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 25px;
-            transition: all 0.3s;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--cor-destaque-suave);
-        }
-
-        .btn-colaborar:hover {
-            background: transparent;
-            color: var(--cor-destaque-suave);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Contato responsivo */
-        .contato-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        @media (min-width: 768px) {
-            .contato-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 50px;
-            }
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--cor-texto);
-            letter-spacing: 0.5px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid var(--cor-cinza-medio);
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background: var(--cor-branco);
-            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-            color: var(--cor-texto);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--cor-destaque);
-            box-shadow: 0 0 0 3px rgba(45,45,45,0.1);
-        }
-
-        .btn-enviar {
-            background: var(--cor-destaque);
-            color: white;
-            border: none;
-            padding: 14px 35px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--cor-destaque);
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .btn-enviar {
-                width: auto;
-            }
-        }
-
-        .btn-enviar:hover {
-            background: transparent;
-            color: var(--cor-destaque);
-        }
-
-        .info-contato {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-        }
-
-        .info-icon {
-            background: var(--cor-destaque);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-
-        .info-item:hover .info-icon {
-            transform: scale(1.1);
-        }
-
-        .info-item h4 {
-            color: var(--cor-texto);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .info-item p {
-            color: var(--cor-texto-secundario);
-            line-height: 1.6;
-        }
-
-        /* Footer responsivo */
-        footer {
-            background: var(--cor-cinza-escuro);
-            color: white;
-            padding: 50px 0 30px;
-            position: relative;
-        }
-
-        @media (min-width: 768px) {
-            footer {
-                padding: 70px 0 30px;
-            }
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        @media (min-width: 768px) {
-            .footer-container {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 50px;
-            }
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', 'Times New Roman', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-about p {
-            color: #bbb;
-            margin-bottom: 25px;
-            line-height: 1.7;
-        }
-
-        .footer-links h4 {
-            margin-bottom: 25px;
-            font-size: 1.2rem;
-            color: white;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-links li {
-            color: #bbb;
-            font-size: 0.95rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            background: var(--cor-destaque);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        /* Media Queries para dispositivos específicos */
-        @media (max-width: 480px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-menu {
-                gap: 15px;
-            }
-            
-            .hero {
-                padding: 80px 0;
-                min-height: 50vh;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            .servico-card {
-                min-width: 280px;
-            }
-            
-            .processo-lista li {
-                padding-left: 60px;
-            }
-            
-            .processo-lista li:before {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                gap: 15px;
-            }
-            
-            .nav-menu {
-                gap: 15px;
-            }
-        }
-
-        /* Suporte para navegadores antigos */
-        @supports not (display: grid) {
-            .sobre-container,
-            .contato-container,
-            .footer-container {
-                display: flex;
-                flex-wrap: wrap;
-            }
-            
-            .sobre-container > *,
-            .contato-container > *,
-            .footer-container > * {
-                flex: 1 1 300px;
-                margin: 10px;
-            }
-        }
-
-        /* Melhorias de acessibilidade */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            
-            .logo-img {
-                animation: none !important;
-            }
-        }
-
-        /* Focus visível para acessibilidade */
-        button:focus-visible,
-        a:focus-visible,
-        .form-control:focus-visible {
-            outline: 2px solid var(--cor-destaque);
-            outline-offset: 2px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norteia Studio - Design de Interiores em Macapá</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+:root{--deep:#0b3a4a;--teal:#1d7c86;--tq:#2fa4b1;--ink:#12262e;--mute:#5a6e76;--line:#dce7ea;--soft:#f5f9fa}
+body{font-family:'Inter','Segoe UI',Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.ic{width:1.1em;height:1.1em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ic.wa{fill:currentColor;stroke:none}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 24px}
+.logo-img{height:50px;width:auto;display:block;animation:flutua 6s ease-in-out infinite}
+nav ul{display:flex;list-style:none;gap:28px;align-items:center;flex-wrap:wrap}
+nav a{color:var(--ink);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;transition:color .2s}
+nav a:hover{color:var(--teal)}
+nav a.cta{border:1px solid var(--deep);padding:9px 18px;border-radius:2px}
+nav a.cta:hover{background:var(--deep);color:#fff}
+.hero{padding:130px 0 110px;text-align:center;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.75rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:22px}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(3.2rem,10vw,7rem);line-height:1.02;letter-spacing:-2px;color:var(--deep)}
+.hero h1+span{display:block;width:64px;height:2px;background:var(--tq);margin:34px auto}
+.hero p{max-width:600px;margin:0 auto 42px;color:var(--mute);font-size:1.1rem;font-weight:300}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border:1px solid var(--teal);background:var(--teal);color:#fff;text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;border-radius:2px;transition:all .25s;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--deep);border-color:var(--deep)}
+.btn.line{background:transparent;color:var(--deep);border-color:var(--deep)}
+.btn.line:hover{background:var(--deep);color:#fff}
+section{padding:100px 0}
+.soft{background:var(--soft)}
+.tag{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:14px}
+h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.15;color:var(--deep);letter-spacing:-.5px}
+h3{font-family:'Playfair Display',Georgia,serif;font-size:1.5rem;color:var(--deep);line-height:1.25;margin-bottom:10px}
+.cols{display:grid;grid-template-columns:1fr;gap:56px;margin-top:48px}
+@media(min-width:880px){.cols{grid-template-columns:1fr 1.15fr;gap:84px}}
+.txt p{color:var(--mute);margin-bottom:18px;font-size:1.04rem}
+.sub{color:var(--teal)!important;font-weight:500;font-size:1.1rem!important}
+.eq{display:grid;gap:30px}
+.eq div{border-top:1px solid var(--line);padding-top:20px}
+.eq h3{font-size:1.25rem;margin-bottom:2px}.eq b{display:block;font-size:.74rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:8px}
+.eq p{color:var(--mute);font-size:.98rem}
+.steps{list-style:none}
+.steps li{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:24px 0;border-top:1px solid var(--line)}
+.steps li:last-child{border-bottom:1px solid var(--line)}
+.n{font-family:'Playfair Display',Georgia,serif;font-size:1.7rem;color:var(--tq);line-height:1.2}
+.steps h4{font-size:1.05rem;font-weight:600;color:var(--deep);margin-bottom:4px}
+.steps p{color:var(--mute);font-size:.97rem}
+.steps small{display:inline-block;margin-top:10px;font-size:.76rem;letter-spacing:.4px;color:var(--teal);font-weight:500}
+.pag{margin-top:80px;padding-top:56px;border-top:1px solid var(--line);text-align:center}
+.pag p{max-width:640px;margin:0 auto 30px;color:var(--mute);font-size:1.04rem}
+.parc{background:var(--deep);color:#fff;text-align:center}
+.parc h2{color:#fff}.parc p{max-width:640px;margin:20px auto 34px;color:rgba(255,255,255,.78);font-weight:300;font-size:1.08rem}
+.parc .btn{background:transparent;border-color:rgba(255,255,255,.7)}.parc .btn:hover{background:#fff;color:var(--deep)}
+label{display:block;font-size:.76rem;letter-spacing:1.3px;text-transform:uppercase;font-weight:500;color:var(--deep);margin-bottom:8px}
+.fg{margin-bottom:22px}
+.fc{width:100%;padding:14px 0;border:0;border-bottom:1px solid var(--line);font:inherit;color:var(--ink);background:transparent;border-radius:0}
+.fc:focus{outline:none;border-bottom-color:var(--teal)}
+.info{display:grid;gap:26px;align-content:start}
+.info div{display:flex;gap:16px;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.info .ic{width:1.4em;height:1.4em;color:var(--teal);margin-top:3px}
+.info span{display:block;font-size:.74rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal);font-weight:500}
+.info a{color:var(--ink);text-decoration:none}
+footer{background:var(--ink);color:#9db1b8;padding:44px 0;text-align:center;font-size:.88rem}
+footer .soc{display:flex;gap:22px;justify-content:center;margin-bottom:18px}
+footer .soc a{color:#fff;font-size:1.3rem;opacity:.85}footer .soc a:hover{opacity:1;color:var(--tq)}
+.wf{position:fixed;right:22px;bottom:22px;z-index:60;width:56px;height:56px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 6px 18px rgba(11,58,74,.28);animation:flutua 4.5s ease-in-out infinite;transition:background .25s}
+.wf:hover{background:var(--deep)}
+.srv{border-bottom:1px solid var(--line);margin-top:48px}
+.srv .r{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:28px 0;border-top:1px solid var(--line)}
+.srv h4{font-size:1.1rem;font-weight:600;color:var(--deep);margin-bottom:6px}
+.srv p{color:var(--mute);font-size:.98rem}.srv p+p{margin-top:10px}
+.lst{list-style:none;margin:14px 0}
+.lst li{position:relative;padding:4px 0 4px 20px;color:var(--mute);font-size:.96rem}
+.lst li:before{content:"";position:absolute;left:0;top:1.05em;width:10px;height:1px;background:var(--tq)}
+.acomp{margin-top:48px;padding:6px 0 6px 28px;border-left:3px solid var(--tq);max-width:760px}
+.acomp b{display:block;font-size:.76rem;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:8px}
+.acomp p{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;color:var(--deep);line-height:1.5}
+.go{margin-top:14px}
+.srv small{display:inline-block;margin-top:10px;font-size:.76rem;letter-spacing:.4px;color:var(--teal);font-weight:500}
+@keyframes flutua{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(max-width:700px){section{padding:68px 0}.hero{padding:80px 0 70px}nav ul{gap:16px}.bar{justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <!-- SUBSTITUA ESTA IMAGEM PELA SUA LOGO -->
-                <img src="IMG_4248.jpg" alt="Norteia Studio" class="logo-img">
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#sobre">Sobre Nós</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#como-funciona">Como Funciona</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="#colaboradores" class="btn-colaborador">Seja Colaborador</a></li>
-            </ul>
-        </div>
-    </header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.78h-.01a9.9 9.9 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 012.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.69 1.45c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.41z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6.5L20.5 7"/></symbol>
+</svg>
 
-    <!-- Resto do código permanece exatamente igual -->
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Design Acessível para Todos</h1>
-            <p>Transformamos espaços com soluções criativas e de baixo custo. Acreditamos que todo mundo merece um lar bonito e funcional, independentemente do orçamento.</p>
-            <a href="#servicos" class="btn-hero">Conheça Nossos Serviços</a>
-        </div>
-    </section>
+<header>
+  <div class="bar">
+    <img src="IMG_4248.jpg" alt="Norteia Studio" class="logo-img">
+    <nav><ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos-oferecidos">Serviços</a></li>
+      <li><a href="#interiores">Interiores</a></li>
+      <li><a href="#moveis-planejados">Móveis Planejados</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a href="#colaboradores" class="cta">Parcerias</a></li>
+    </ul></nav>
+  </div>
+</header>
 
-    <!-- Sobre Nós -->
-    <section id="sobre">
-        <div class="container">
-            <h2 class="section-title">Sobre Nós</h2>
-            <div class="sobre-container">
-                <div class="sobre-texto">
-                    <p>Fundamos a Norteia Studio com um propósito claro: levar design de interiores de qualidade para pessoas que não têm condições de pagar por serviços tradicionais, que costumam ter valores muito altos.</p>
-                    <p>Acreditamos que todos merecem um lugar digno para viver, trabalhar e descansar, independentemente do tamanho do espaço ou do orçamento disponível.</p>
-                    <p>Nossa missão é criar soluções inteligentes que façam ambientes pequenos parecerem maiores e mais funcionais, utilizando criatividade e itens de baixo custo.</p>
-                </div>
-                
-                <div class="equipe-container">
-                    <div class="membro">
-                        <h3>Cleverton Cauã</h3>
-                        <p class="membro-cargo">Designer de Interiores & Estudante de Arquitetura e Urbanismo</p>
-                        <p>Especializado em soluções criativas de baixo custo para transformar espaços compactos. Atualmente cursando Arquitetura e Urbanismo para aprimorar conhecimentos técnicos e expandir possibilidades de atuação.</p>
-                    </div>
-                    
-                    <div class="membro">
-                        <h3>Andreza Bruna</h3>
-                        <p class="membro-cargo">Designer de Interiores & Estudante de Arquitetura e Urbanismo</p>
-                        <p>Com foco em criar ambientes funcionais e aconchegantes que respeitem o orçamento real das pessoas. Cursando Arquitetura e Urbanismo para complementar a formação em design com conhecimentos estruturais e urbanísticos.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<main>
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Design de interiores · Macapá, AP</div>
+    <h1>Norteia Studio</h1><span></span>
+    <p>Transformamos espaços com soluções criativas e sob medida. Acreditamos que todo mundo merece um lar bonito e funcional, independentemente do orçamento.</p>
+    <div class="btns">
+      <a href="#interiores" class="btn">Conheça nossos serviços</a>
+      <a href="https://wa.me/5596991208893" target="_blank" rel="noopener" class="btn line"><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg> WhatsApp</a>
+    </div>
+  </div>
+</section>
 
-    <!-- Dados IBGE -->
-    <section id="dados">
-        <div class="container">
-            <h2 class="section-title">Por Que Nosso Trabalho É Necessário</h2>
-            <div class="dados-container">
-                <div class="dados-item">
-                    <div class="dados-titulo">
-                        <i class="fas fa-chart-line dados-icon"></i>
-                        <h3>Desafios da Habitação no Brasil</h3>
-                    </div>
-                    <p>Segundo dados do IBGE, mais de 40% da população brasileira vive com até 1 salário mínimo per capita, tornando serviços de design inacessíveis para grande parte da população.</p>
-                </div>
-                
-                <div class="dados-item">
-                    <div class="dados-titulo">
-                        <i class="fas fa-home dados-icon"></i>
-                        <h3>Espaços Compactos</h3>
-                    </div>
-                    <p>Pesquisas do CAU Brasil mostram que mais de 60% dos imóveis nas grandes cidades têm menos de 50m², exigindo soluções inteligentes para otimização do espaço.</p>
-                </div>
-                
-                <div class="dados-item">
-                    <div class="dados-titulo">
-                        <i class="fas fa-hand-holding-usd dados-icon"></i>
-                        <h3>Acesso ao Design</h3>
-                    </div>
-                    <p>Estudos indicam que menos de 5% da população brasileira já contratou um serviço de design de interiores, principalmente devido aos altos custos envolvidos.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="sobre">
+  <div class="container">
+    <div class="tag">Quem somos</div>
+    <h2>Sobre nós</h2>
+    <div class="cols">
+      <div class="txt">
+        <p>Fundamos o Norteia Studio com um propósito claro: levar design de interiores de qualidade para quem busca transformar seus ambientes sem altos custos tradicionais.</p>
+        <p>Acreditamos que todos merecem um espaço digno para viver, trabalhar e descansar. Nossa missão é otimizar cada metro quadrado com inteligência visual e soluções acessíveis.</p>
+      </div>
+      <div class="eq">
+        <div><h3>Cleverton Cauã</h3><b>Designer de Interiores &amp; Estudante de Arquitetura e Urbanismo</b><p>Especializado em soluções criativas de baixo custo para otimização de espaços compactos.</p></div>
+        <div><h3>Andreza Bruna</h3><b>Designer de Interiores &amp; Estudante de Arquitetura e Urbanismo</b><p>Focada no desenvolvimento de ambientes funcionais, aconchegantes e integrados à rotina do cliente.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Serviços -->
-    <section id="servicos">
+<section id="servicos-oferecidos" class="soft">
+  <div class="container">
+    <div class="tag">O que oferecemos</div>
+    <h2>Serviços oferecidos</h2>
+    <div class="srv">
+      <div class="r"><span class="n">1</span><div><h4>Design de Interiores</h4><p>Orientação completa e inteligente, sem quebra-quebra, para transformar sala, quarto, cozinha e home office.</p></div></div>
+      <div class="r"><span class="n">2</span><div><h4>Móveis Planejados 100% Sob Medida</h4><p>Nada pronto de loja. Projeto, produção com parceiros e montagem completa na medida exata da sua casa.</p></div></div>
+      <div class="r"><span class="n">3</span><div><h4>Entregáveis Técnicos — personalizado para cada projeto</h4><p>As plantas e detalhamentos são desenvolvidos de acordo com a necessidade de cada cliente. Você recebe apenas o que seu projeto precisa, podendo incluir:</p>
+        <ul class="lst"><li>Planta baixa de layout humanizado</li><li>Planta de forro de gesso e iluminação</li><li>Planta de paginação de piso e parede</li><li>Planta de pontos elétricos e hidráulicos</li><li>Detalhamento completo de marcenaria sob medida</li><li>Detalhamento de marmoraria (bancadas, ilhas, nichos)</li><li>Memorial descritivo de materiais e acabamentos</li></ul>
+        <p>Você tem duas opções: podemos executar e instalar tudo com nossa equipe parceira de confiança, ou, se preferir, você leva apenas o projeto técnico detalhado e executa onde quiser.</p></div></div>
+      <div class="r"><span class="n">4</span><div><h4>Projeto 3D Imersivo</h4><p>Imagens 3D realistas e vídeo 360° estilo Netflix com 2 rodadas de alterações.</p></div></div>
+      <div class="r"><span class="n">5</span><div><h4>Cotação e Lista de Compras</h4><p>Lista completa com pesquisa de onde comprar tintas, luminárias, cortinas e demais itens em Macapá.</p><small>Incluso no projeto</small></div></div>
+      <div class="r"><span class="n">6</span><div><h4>Curadoria de Compra e Implementação</h4><p>Compra, recebimento, conferência e instalação de móveis soltos, luminárias e decoração com nossa equipe.</p><small>Fora do projeto — você escolhe entre a Curadoria normal ou a Prime</small></div></div>
+      <div class="r"><span class="n">7</span><div><h4>Curadoria Prime — Casa Pronta, Zero Dor de Cabeça</h4><p>Nosso serviço premium, ideal para quem vive indo e voltando, viaja muito, mora fora de Macapá ou tem imóvel de férias na cidade e quer chegar e já aproveitar, sem dor de cabeça. Entregamos 100% pronta para morar, com tudo no lugar.</p><small>Fora do projeto — você escolhe entre a Curadoria normal ou a Prime</small></div></div>
+    </div>
+    <div class="acomp"><b>Acompanhamento exclusivo Norteia</b><p>Em todas as etapas eu estarei presente do começo ao final. Qualquer dúvida, estou disponível para responder e te acompanhar até a entrega final.</p></div>
+  </div>
+</section>
+
+<section id="interiores">
+  <div class="container">
+    <div class="tag">Interiores</div>
+    <h2>Projeto de Interiores Completo</h2>
+    <div class="cols">
+      <div class="txt">
+        <p class="sub">Do diagnóstico inicial ao detalhamento final para execução rápida e sem erros.</p>
+        <h3>Design de Interiores — o que é?</h3>
+        <p>Muita gente acha que design de interiores é só quebrar parede e gastar muito. Não é. Design de interiores é orientação. É eu te ajudar a organizar o que você já tem, escolher as cores certas, a iluminação que deixa mais claro e fresco, onde colocar cada móvel para aproveitar espaço, sem precisar de obra e sem quebra-quebra. É transformar sua casa com inteligência, não com marreta. É ideal para quem quer mudar sala, quarto, cozinha, mas sem reforma grande.</p>
+        <p>Além do projeto, faço para você a cotação antecipada de todos os materiais que você vai precisar para essa mudança, como tintas, luminárias, prateleiras, quadros, cortinas e tudo relacionado a interiores. Te entrego uma lista completa de onde comprar barato aqui em Macapá, para você já saber quanto vai gastar antes de começar.</p>
+        <a href="https://wa.me/5596991208893?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Norteia%20Studio%20e%20quero%20um%20projeto%20de%20Design%20de%20Interiores.%0A%0AAmbiente%28s%29%20que%20quero%20transformar%3A%20%0ATenho%20fotos%20e%20medidas%3A%20%0A%0APode%20me%20explicar%20como%20funciona%20e%20fazer%20meu%20or%C3%A7amento%20personalizado%3F" target="_blank" rel="noopener" class="btn go"><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg> Quero meu projeto de interiores</a>
+      </div>
+      <ol class="steps"><li><span class="n">01</span><div><h4>Atendimento Inicial</h4><p>Online com orientação técnica para medição/fotos ou presencial com visita ao local e reunião briefing.</p></div></li><li><span class="n">02</span><div><h4>Orçamento Personalizado</h4><p>Cálculo dimensionado por horas técnicas e grau de complexidade de cada ambiente.</p></div></li><li><span class="n">03</span><div><h4>Formalização</h4><p>Envio de contrato oficial e questionário briefing detalhado.</p><small><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> Enviado por WhatsApp / Gmail</small></div></li><li><span class="n">04</span><div><h4>Estudo de Layout</h4><p>Prancha descritiva em PDF A4 acompanhada de Vídeo 360° explicando o fluxo de circulação. (1ª alteração inclusa)</p><small><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> Enviado por Gmail</small></div></li><li><span class="n">05</span><div><h4>Projeto 3D</h4><p>Modelagem com texturas, cores e aplicação de iluminação realista. (2ª alteração inclusa com novo vídeo 360°)</p><small><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> Enviado por Gmail</small></div></li><li><span class="n">06</span><div><h4>Caderno Técnico &amp; Compras</h4><p>Plantas finais, iluminação, paginação, detalhamentos de marcenaria/marmoraria, memorial descritivo e Tabela de Compras Clicável.</p><small><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> Vídeo 360° final por Gmail</small></div></li></ol>
+    </div>
+  </div>
+</section>
+
+<section id="moveis-planejados" class="soft">
+  <div class="container">
+    <div class="tag">Sob medida</div>
+    <h2>Móveis Planejados</h2>
+    <div class="cols">
+      <div class="txt">
+        <p class="sub">Nada pronto de loja. Tudo feito do seu jeito, na medida da sua casa.</p>
+        <p>Aqui no Norteia eu não vendo móvel pronto de catálogo. Eu faço seu móvel do jeito que você sonhou, na medida exata da sua parede. Você me conta sua ideia, eu te oriento com o que funciona melhor para seu espaço, para o clima de Macapá e para seu bolso, e te entrego o projeto em 3D para você ver antes de gastar.</p>
+      </div>
+      <div>
+        <h3>Como funciona</h3>
+        <ol class="steps">
+          <li><span class="n">01</span><div><h4>Contato</h4><p>Você me chama no WhatsApp e me conta sua ideia.</p></div></li>
+          <li><span class="n">02</span><div><h4>Medição</h4><p>Você escolhe como prefere: presencial, com eu indo até sua casa medir tudo certinho, ou online, mandando vídeo e medidas.</p></div></li>
+          <li><span class="n">03</span><div><h4>Orçamento base</h4><p>Apresento o orçamento base do seu móvel para você avaliar e aprovar.</p></div></li>
+          <li><span class="n">04</span><div><h4>Projeto 3D</h4><p>Com o orçamento aprovado, faço seu projeto 3D personalizado e te mostro como vai ficar.</p></div></li>
+          <li><span class="n">05</span><div><h4>Fábrica e montagem</h4><p>Com o projeto 3D aprovado, mando para produção com meu marceneiro parceiro ou fábrica parceira e entrego tudo já montado na sua casa.</p></div></li>
+        </ol>
+        <a href="https://wa.me/5596991208893?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Norteia%20Studio%20e%20quero%20um%20m%C3%B3vel%20planejado%20sob%20medida.%0A%0AM%C3%B3vel%20/%20ambiente%3A%20%0ATenho%20v%C3%ADdeo%20e%20medidas%3A%20%0A%0APode%20me%20explicar%20como%20funciona%20e%20fazer%20meu%20or%C3%A7amento%20personalizado%3F" target="_blank" rel="noopener" class="btn go"><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg> Quero meu móvel sob medida</a>
+      </div>
+    </div>
+    <div class="pag">
+      <h3>Facilitamos seu pagamento</h3>
+      <p>Aceitamos PIX, parcelamento no cartão e combinamos o melhor jeito para você. Fale comigo no privado e vamos achar uma condição que caiba no seu bolso. Nosso objetivo é deixar você à vontade.</p>
+      <a href="https://wa.me/5596991208893?text=Ol%C3%A1!%20Quero%20fazer%20meu%20or%C3%A7amento%20personalizado." target="_blank" rel="noopener" class="btn"><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg> Falar no WhatsApp e fazer meu orçamento personalizado</a>
+    </div>
+  </div>
+</section>
+
+<section id="colaboradores" class="parc">
+  <div class="container">
+    <div class="eyebrow" style="color:#8fd3db">Parcerias</div>
+    <h2>Seja um Colaborador Parceiro</h2>
+    <p>Buscamos parcerias estratégicas com lojas de materiais de construção, marmorarias, lojas de iluminação e fornecedores da área de interiores. Vamos transformar projetos juntos?</p>
+    <a href="#contato" class="btn">Quero ser parceiro</a>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="container">
+    <div class="tag">Contato</div>
+    <h2>Entre em contato</h2>
+    <div class="cols">
+      <form action="https://formsubmit.co/norteiastudio01@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Novo contato pelo site - Norteia Studio">
+        <div class="fg"><label for="nome">Nome</label><input type="text" id="nome" name="name" class="fc" required></div>
+        <div class="fg"><label for="email">E-mail</label><input type="email" id="email" name="email" class="fc" required></div>
+        <div class="fg"><label for="mensagem">Mensagem</label><textarea id="mensagem" name="message" rows="4" class="fc" required></textarea></div>
+        <button type="submit" class="btn">Enviar mensagem</button>
+      </form>
+      <div class="info">
+        <div><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg><p><span>WhatsApp</span><a href="https://wa.me/5596991208893" target="_blank" rel="noopener">(96) 99120-8893</a></p></div>
+        <div><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg><p><span>E-mail</span><a href="mailto:norteiastudio01@gmail.com">norteiastudio01@gmail.com</a></p></div>
+        <div><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg><p><span>Instagram</span><a href="https://instagram.com/norteiastudio" target="_blank" rel="noopener">@norteiastudio</a></p></div>
+        <div style="border:0"><p><span>Localização</span>Macapá - Amapá</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Serviços antigos mantidos ocultos (não aparecem no site) -->
+<div class="pacotes-ocultos" hidden>
+<section id="servicos">
         <div class="container">
             <h2 class="section-title">Nossos Serviços</h2>
             <div class="servicos-container">
@@ -1157,7 +248,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">DIAGNÓSTICO VISUAL</h3>
-                            <div class="servico-preco">R$ 49</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Para quem está perdido e não sabe por onde começar"</p>
@@ -1170,7 +261,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 2 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 49 à vista</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem quer uma direção profissional sem gastar muito</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1181,7 +271,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">PROJETO GUIA 2D</h3>
-                            <div class="servico-preco">R$ 127</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Seu plano completo de transformação"</p>
@@ -1195,7 +285,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 4 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 127 (pode dividir)</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem quer um projeto completo e seguro para executar</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1206,7 +295,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">IMERSÃO 3D</h3>
-                            <div class="servico-preco">R$ 197</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Veja seu ambiente transformado antes de fazer qualquer coisa"</p>
@@ -1220,7 +309,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 6 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 197 (pode dividir)</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem quer ter certeza antes de gastar dinheiro</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1231,7 +319,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">EXPERIÊNCIA COMPLETA</h3>
-                            <div class="servico-preco">R$ 297</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Máximo de resultado com mínimo de preocupação"</p>
@@ -1246,7 +334,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 8 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 297 (pode dividir)</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem quer transformação total com suporte prolongado</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1257,7 +344,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">HOME OFFICE POPULAR</h3>
-                            <div class="servico-preco">R$ 127</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Seu cantinho de trabalho aconchegante e produtivo"</p>
@@ -1271,7 +358,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 4 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 127 (pode dividir)</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem trabalha em casa e quer conforto e produtividade</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1282,7 +368,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">QUITINETE INTELIGENTE</h3>
-                            <div class="servico-preco">R$ 197</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Aproveite cada centímetro do seu espaço pequeno"</p>
@@ -1296,7 +382,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 6 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 197 (pode dividir)</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Apartamentos pequenos, kitnets e espaços compactos</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1307,7 +392,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">ROTINA ACONCHEGANTE</h3>
-                            <div class="servico-preco">R$ 157</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Transforme sua casa no seu refúgio particular"</p>
@@ -1321,7 +406,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 5 dias úteis</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 157 (pode dividir)</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem busca conforto, bem-estar e qualidade de vida em casa</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1332,7 +416,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">VISITA TÉCNICA</h3>
-                            <div class="servico-preco">R$ 87</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"Precisão total para seu projeto"</p>
@@ -1346,7 +430,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> Agendamento</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 87</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem precisa de precisão máxima no projeto</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1357,7 +440,7 @@
                     <div class="servico-card">
                         <div class="servico-header">
                             <h3 class="servico-titulo">CONSULTA COR</h3>
-                            <div class="servico-preco">R$ 25</div>
+                            <div class="servico-preco"></div>
                         </div>
                         <div class="servico-descricao">
                             <p>"A cor certa muda tudo"</p>
@@ -1370,7 +453,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> 1 dia útil</div>
-                                <div><strong>INVESTIMENTO:</strong> R$ 25</div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Quem está em dúvida sobre cores para o ambiente</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1394,7 +476,6 @@
                             </ul>
                             <div class="servico-info">
                                 <div><strong>PRAZO:</strong> Imediato</div>
-                                <div><strong>INVESTIMENTO:</strong> </div>
                             </div>
                             <p><strong>PERFEITO PARA:</strong> Dúvidas rápidas durante compras ou decisões</p>
                             <a href="#contato" class="btn-servico">Contratar</a>
@@ -1404,18 +485,16 @@
                 
                 <div class="carrossel-controles">
                     <button class="carrossel-btn" id="prev-btn" aria-label="Serviços anteriores">
-                        <i class="fas fa-chevron-left"></i>
+                        
                     </button>
                     <button class="carrossel-btn" id="next-btn" aria-label="Próximos serviços">
-                        <i class="fas fa-chevron-right"></i>
+                        
                     </button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Como Funciona -->
-    <section id="como-funciona">
+<section id="como-funciona">
         <div class="container">
             <h2 class="section-title">Como Funciona</h2>
             <div class="processo">
@@ -1444,179 +523,19 @@
             </div>
         </div>
     </section>
+</div>
 
-    <!-- Colaboradores -->
-    <section id="colaboradores" class="colaboradores">
-        <div class="container">
-            <h2 class="section-title">Área de Colaboradores</h2>
-            <div class="colaboradores-container">
-                <p>A Norteia Studio acredita na força da colaboração para transformar mais vidas através do design acessível.</p>
-                <p>Se você é arquiteto, designer, estudante da área ou simplesmente tem interesse em apoiar nossa causa, junte-se a nós!</p>
-                <p>Estamos abertos a parcerias com lojas de materiais de construção, marcas de móveis e qualquer pessoa ou empresa que queira fazer parte deste movimento.</p>
-                <a href="#contato" class="btn-colaborar">Quero Ser um Colaborador</a>
-            </div>
-        </div>
-    </section>
-
-   <!-- Contato -->
-<section id="contato">
-    <div class="container">
-        <h2 class="section-title">Entre em Contato</h2>
-        <div class="contato-container">
-            <div class="form-contato">
-                <form action="https://formsubmit.co/norteiastudio01@gmail.com" method="POST">
-                    <!-- Configurações do FormSubmit -->
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://seuusuario.github.io/seurepositorio/obrigado.html">
-                    <input type="hidden" name="_subject" value="Novo contato do site Norteia Studio">
-                    
-                    <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="servico">Serviço de Interesse</label>
-                        <select id="servico" name="servico" class="form-control">
-                            <option value="">Selecione um serviço</option>
-                            <option value="Diagnóstico Visual - R$ 49">Diagnóstico Visual - R$ 49</option>
-                            <option value="Projeto Guia 2D - R$ 127">Projeto Guia 2D - R$ 127</option>
-                            <option value="Imersão 3D - R$ 197">Imersão 3D - R$ 197</option>
-                            <option value="Experiência Completa - R$ 297">Experiência Completa - R$ 297</option>
-                            <option value="Home Office Popular - R$ 127">Home Office Popular - R$ 127</option>
-                            <option value="Quitinete Inteligente - R$ 197">Quitinete Inteligente - R$ 197</option>
-                            <option value="Rotina Aconchegante - R$ 157">Rotina Aconchegante - R$ 157</option>
-                            <option value="Visita Técnica - R$ 87">Visita Técnica - R$ 87</option>
-                            <option value="Consulta Cor - R$ 25">Consulta Cor - R$ 25</option>
-                            <option value="Plantão Dúvidas - R$ 15/15min">Plantão Dúvidas - R$ 15/15min</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="mensagem">Mensagem</label>
-                        <textarea id="mensagem" name="message" rows="5" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-enviar">Enviar Mensagem</button>
-                </form>
-            </div>
-            <div class="info-contato">
-                <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div>
-                        <h4>WhatsApp</h4>
-                        <p>(96) 99120-8893</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h4>E-mail</h4>
-                        <p>norteiastudio01@gmail.com</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div>
-                        <h4>Instagram</h4>
-                        <p>@norteiastudio</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <div>
-                        <h4>Pagamento</h4>
-                        <p>Aceitamos PIX, transferência e parcelamento</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<footer>
+  <div class="container">
+    <div class="soc">
+      <a href="https://wa.me/5596991208893" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg></a>
+      <a href="https://instagram.com/norteiastudio" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a href="mailto:norteiastudio01@gmail.com" aria-label="Gmail"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></a>
     </div>
-</section>
+    <p>&copy; 2026 Norteia Studio. Todos os direitos reservados.</p>
+  </div>
+</footer>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        Norteia Studio
-                    </div>
-                    <p>Seu norte para ambientes acolhedores. Design de interiores acessível para todos.</p>
-                    <div class="social-links">
-                        <a href="https://wa.me/5596991208893" target="_blank" aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://instagram.com/norteiastudio" target="_blank" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="mailto:norteiastudio01@gmail.com" aria-label="E-mail">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>Serviços</h4>
-                    <ul>
-                        <li><a href="#servicos">Diagnóstico Visual</a></li>
-                        <li><a href="#servicos">Projeto Guia 2D</a></li>
-                        <li><a href="#servicos">Imersão 3D</a></li>
-                        <li><a href="#servicos">Experiência Completa</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Links Rápidos</h4>
-                    <ul>
-                        <li><a href="#sobre">Sobre Nós</a></li>
-                        <li><a href="#como-funciona">Como Funciona</a></li>
-                        <li><a href="#colaboradores">Colaboradores</a></li>
-                        <li><a href="#contato">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contato</h4>
-                    <ul>
-                        <li><i class="fab fa-whatsapp"></i> (96) 99120-8893</li>
-                        <li><i class="fas fa-envelope"></i> norteiastudio01@gmail.com</li>
-                        <li><i class="fab fa-instagram"></i> @norteiastudio</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 Norteia Studio. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
-    <script>
-        // Carrossel de serviços
-        const carrossel = document.getElementById('carrossel');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        
-        if (carrossel && prevBtn && nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                carrossel.scrollBy({ left: 350, behavior: 'smooth' });
-            });
-            
-            prevBtn.addEventListener('click', () => {
-                carrossel.scrollBy({ left: -350, behavior: 'smooth' });
-            });
-        }
-        
-        // Suporte para navegadores antigos
-        if (!window.addEventListener) {
-            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"><\/script>');
-        }
-    </script>
-
+<a href="https://wa.me/5596991208893" target="_blank" rel="noopener" class="wf" aria-label="Falar no WhatsApp"><svg class="ic wa" aria-hidden="true"><use href="#i-wa"/></svg></a>
 </body>
 </html>
